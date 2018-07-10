@@ -1,4 +1,4 @@
-import combineReducers from 'redux/lib/combineReducers';
+import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux/reducer';
 import core from './modules/core';
 

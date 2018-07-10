@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { triggerStep } from '../coreActions';
 
 class Step extends Component {
   constructor(props) {
@@ -19,6 +23,11 @@ class Step extends Component {
     await this.setupElement();
     await this.setupEvents();
     this.updateScroll();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize, true);
+    window.removeEventListener('scroll', this.onScroll, true);
   }
 
   getOffsetHeight = () => {
@@ -57,16 +66,17 @@ class Step extends Component {
   updateScroll = () => {
     this.setState({ ticking: false });
     let { element } = this.state;
-    const { enter, exit, once } = this.props;
+    const { enter, exit, once, triggerStep, datum } = this.props;
     const targetFromTop = this.getOffsetHeight();
 
-    const rect = element.getBoundingClientRect();
-    const top = rect.top;
-    const entered = top < targetFromTop;
+    const { top, bottom } = element.getBoundingClientRect();
+    const entered = top < targetFromTop && bottom > targetFromTop;
+
     if (entered && !element.__enter_view) {
       enter(element);
+      triggerStep(datum);
       if (once) return false;
-    } else if (!entered && element.__enter_view && exit) {
+    } else if (!entered && element.__enter_view) {
       exit(element);
     }
 
@@ -96,7 +106,7 @@ class Step extends Component {
     this.updateScroll();
   };
 
-  render() {    
+  render() {
     return React.cloneElement(this.props.children, { ref: this.refElement });
   }
 }
@@ -109,10 +119,13 @@ Step.propTypes = {
 };
 
 Step.defaultProps = {
-  enter: () => {},
-  exit: () => {},
-  offset: 0,
+  enter: el => (el.style.backgroundColor = 'white'),
+  exit: el => (el.style.backgroundColor = 'lightblue'),
+  offset: 0.5,
   once: false,
+  datum: null,
 };
 
-export default Step;
+export default connect(null, dispatch => ({
+  triggerStep: datum => dispatch(triggerStep(datum)),
+}))(Step);

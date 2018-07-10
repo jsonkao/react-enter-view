@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 
 const styles = {
@@ -17,4 +18,6 @@ const Sticky = ({ classes, children, data }) => {
   );
 };
 
-export default injectSheet(styles)(Sticky);
+export default connect(state => ({ data: state.core.data }))(
+  injectSheet(styles)(Sticky),
+);

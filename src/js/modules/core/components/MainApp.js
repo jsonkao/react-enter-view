@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import connect from 'react-redux/lib/connect/connect';
+import { connect } from 'react-redux';
 
 import { refreshWindowDimensions } from './../coreActions';
 import Step from './Step';
@@ -14,16 +14,14 @@ const styles = {
     margin: '90vh 0',
   },
   step: {
-    backgroundColor: 'coral',
+    backgroundColor: 'lightblue',
     padding: '100px',
-    margin: '10px',
   },
 };
 
+const Hi = ({ data }) => <p>data: {data}</p>;
+
 class MainApp extends PureComponent {
-  state = {
-    data: 0,
-  };
   static contextTypes = {
     store: PropTypes.object.isRequired,
   };
@@ -37,13 +35,12 @@ class MainApp extends PureComponent {
     window.removeEventListener('resize', this.onResizeWindow);
   }
   render() {
-    const { data } = this.state;
     const { classes } = this.props;
 
     return (
       <div className={classes.scrolly}>
-        <Sticky data={data}>
-          <p>Welcome to React</p>
+        <Sticky>
+          <Hi />
         </Sticky>
         <Step datum={1}>
           <div className={classes.step}>step 1</div>
