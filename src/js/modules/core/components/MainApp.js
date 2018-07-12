@@ -19,14 +19,16 @@ const styles = {
 
 const Hi = ({ data = 300 }) => {
   return (
-    <div
-      style={{
-        transitionDuration: '0.5s',
-        backgroundColor: 'red',
-        height: 50,
-        width: data,
-      }}
-    />
+    <div style={{ border: '1px solid #aaa', width: '100%', height: 50 }}>
+      <div
+        style={{
+          transitionDuration: '0.5s',
+          backgroundColor: 'red',
+          height: 50,
+          width: data || '100%',
+        }}
+      />
+    </div>
   );
 };
 
@@ -34,41 +36,38 @@ class MainApp extends PureComponent {
   static contextTypes = {
     store: PropTypes.object.isRequired,
   };
-  onResizeWindow = () => {
-    this.props.refreshWindowDimensions();
-  };
+
   componentDidMount() {
     window.addEventListener('resize', this.onResizeWindow);
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResizeWindow);
   }
+
+  onResizeWindow = () => {
+    this.props.refreshWindowDimensions();
+  };
+
   render() {
     const { classes, data } = this.props;
 
     return (
       <Container split={40}>
-        <Sticky>
-          <div
-            style={{
-              transitionDuration: '0.5s',
-              backgroundColor: 'red',
-              height: 50,
-              width: data,
-            }}
-          />
-        </Sticky>
         <Content>
-          <Step datum={400}>
-            <div className={classes.step}>step 1</div>
+          <Step datum="40%">
+            <div className={classes.step}>40%</div>
           </Step>
-          <Step datum={100}>
-            <div className={classes.step}>step 2</div>
+          <Step datum="90%">
+            <div className={classes.step}>90%</div>
           </Step>
-          <Step datum={200}>
-            <div className={classes.step}>step 3</div>
+          <Step datum="20%">
+            <div className={classes.step}>20%</div>
           </Step>
         </Content>
+        <Sticky>
+          <Hi />
+        </Sticky>
       </Container>
     );
   }

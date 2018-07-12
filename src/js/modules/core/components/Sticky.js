@@ -7,13 +7,14 @@ const styles = {
     position: 'sticky',
     top: '50%',
     transform: 'translateY(-50%)',
+    alignSelf: 'flex-start',
   },
 };
 
 const Sticky = ({ classes, children, data, split }) => {
   const stickyStyles = {};
   if (split) {
-    stickyStyles.flexBasis = `${split}%`;
+    stickyStyles.flexBasis = `${100 - split}%`;
   }
 
   // style is [Object object]

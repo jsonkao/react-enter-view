@@ -119,8 +119,14 @@ Step.propTypes = {
 };
 
 Step.defaultProps = {
-  enter: el => (el.style.backgroundColor = 'white'),
-  exit: el => (el.style.backgroundColor = 'lightblue'),
+  enter: el => {
+    el.style.opacity = '0.8';
+    el.style.fontWeight = 'bold';
+  },
+  exit: el => {
+    el.style.opacity = '1';
+    el.style.fontWeight = 'normal';
+  },
   offset: 0.5,
   once: false,
   datum: null,

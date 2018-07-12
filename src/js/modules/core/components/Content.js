@@ -8,11 +8,11 @@ const styles = {
 const Content = ({ classes, children, split }) => {
   const contentStyles = {};
   if (split) {
-    contentStyles.flexBasis = `${98 - split}%`;
+    contentStyles.flexBasis = `${split}%`;
   }
 
   return (
-    <div className={classes.Content} styles={contentStyles}>
+    <div className={classes.Content} style={contentStyles}>
       {children}
     </div>
   );
