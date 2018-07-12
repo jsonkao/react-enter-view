@@ -10,9 +10,16 @@ const styles = {
   },
 };
 
-const Sticky = ({ classes, children, data }) => {
+const Sticky = ({ classes, children, data, split }) => {
+  const stickyStyles = {};
+  if (split) {
+    stickyStyles.flexBasis = `${split}%`;
+  }
+
+  // style is [Object object]
+
   return (
-    <div className={classes.Sticky}>
+    <div className={classes.Sticky} style={stickyStyles}>
       {React.cloneElement(React.Children.only(children), { data })}
     </div>
   );

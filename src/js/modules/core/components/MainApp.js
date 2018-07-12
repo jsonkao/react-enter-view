@@ -6,20 +6,29 @@ import { connect } from 'react-redux';
 import { refreshWindowDimensions } from './../coreActions';
 import Step from './Step';
 import Sticky from './Sticky';
+import Content from './Content';
+import Container from './Container';
+// import { Step, Sticky, Content, Container } from './';
 
 const styles = {
-  scrolly: {
-    backgroundColor: '#aaa',
-    padding: '10px',
-    margin: '90vh 0',
-  },
   step: {
     backgroundColor: 'lightblue',
     padding: '100px',
   },
 };
 
-const Hi = ({ data }) => <p>data: {data}</p>;
+const Hi = ({ data = 300 }) => {
+  return (
+    <div
+      style={{
+        transitionDuration: '0.5s',
+        backgroundColor: 'red',
+        height: 50,
+        width: data,
+      }}
+    />
+  );
+};
 
 class MainApp extends PureComponent {
   static contextTypes = {
@@ -35,23 +44,32 @@ class MainApp extends PureComponent {
     window.removeEventListener('resize', this.onResizeWindow);
   }
   render() {
-    const { classes } = this.props;
+    const { classes, data } = this.props;
 
     return (
-      <div className={classes.scrolly}>
+      <Container split={40}>
         <Sticky>
-          <Hi />
+          <div
+            style={{
+              transitionDuration: '0.5s',
+              backgroundColor: 'red',
+              height: 50,
+              width: data,
+            }}
+          />
         </Sticky>
-        <Step datum={1}>
-          <div className={classes.step}>step 1</div>
-        </Step>
-        <Step datum={2}>
-          <div className={classes.step}>step 2</div>
-        </Step>
-        <Step datum={3}>
-          <div className={classes.step}>step 3</div>
-        </Step>
-      </div>
+        <Content>
+          <Step datum={400}>
+            <div className={classes.step}>step 1</div>
+          </Step>
+          <Step datum={100}>
+            <div className={classes.step}>step 2</div>
+          </Step>
+          <Step datum={200}>
+            <div className={classes.step}>step 3</div>
+          </Step>
+        </Content>
+      </Container>
     );
   }
 }
@@ -61,6 +79,7 @@ const VisibleMainApp = connect(
     language: state.core.language,
     viewportWidth: state.core.viewportWidth,
     viewportHeight: state.core.viewportHeight,
+    data: state.core.data,
   }),
   dispatch => ({
     refreshWindowDimensions: () => {
