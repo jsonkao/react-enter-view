@@ -8,28 +8,17 @@ import Step from './Step';
 import Sticky from './Sticky';
 import Content from './Content';
 import Container from './Container';
-// import { Step, Sticky, Content, Container } from './';
+import Graphic from './Graphic';
 
 const styles = {
-  step: {
-    backgroundColor: 'lightblue',
-    padding: '100px',
+  main: {
+    margin: '80vh 0',
   },
-};
-
-const Hi = ({ data = 300 }) => {
-  return (
-    <div style={{ border: '1px solid #aaa', width: '100%', height: 50 }}>
-      <div
-        style={{
-          transitionDuration: '0.5s',
-          backgroundColor: 'red',
-          height: 50,
-          width: data || '100%',
-        }}
-      />
-    </div>
-  );
+  step: {
+    border: '1px solid #ddd',
+    padding: '100px',
+    margin: '200px 0',
+  },
 };
 
 class MainApp extends PureComponent {
@@ -53,22 +42,25 @@ class MainApp extends PureComponent {
     const { classes, data } = this.props;
 
     return (
-      <Container split={40}>
-        <Content>
-          <Step datum="40%">
-            <div className={classes.step}>40%</div>
-          </Step>
-          <Step datum="90%">
-            <div className={classes.step}>90%</div>
-          </Step>
-          <Step datum="20%">
-            <div className={classes.step}>20%</div>
-          </Step>
-        </Content>
-        <Sticky>
-          <Hi />
-        </Sticky>
-      </Container>
+      <div className={classes.main}>
+        <Container split={40}>
+          <Content>
+            <Step datum="red">
+              <div className={classes.step}>red</div>
+            </Step>
+            <Step datum="green">
+              <div className={classes.step}>green</div>
+            </Step>
+            <Step datum="blue">
+              <div className={classes.step}>blue</div>
+            </Step>
+          </Content>
+
+          <Sticky>
+            <Graphic />
+          </Sticky>
+        </Container>
+      </div>
     );
   }
 }

@@ -6,7 +6,6 @@ const styles = {
     display: 'flex',
     border: '1px dashed #ddd',
     padding: '20px',
-    margin: '50vh 0',
   },
 };
 

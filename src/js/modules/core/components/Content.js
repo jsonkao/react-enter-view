@@ -1,9 +1,4 @@
 import React from 'react';
-import injectSheet from 'react-jss';
-
-const styles = {
-  Content: {},
-};
 
 const Content = ({ classes, children, split }) => {
   const contentStyles = {};
@@ -11,11 +6,7 @@ const Content = ({ classes, children, split }) => {
     contentStyles.flexBasis = `${split}%`;
   }
 
-  return (
-    <div className={classes.Content} style={contentStyles}>
-      {children}
-    </div>
-  );
+  return <div style={contentStyles}>{children}</div>;
 };
 
-export default injectSheet(styles)(Content);
+export default Content;
