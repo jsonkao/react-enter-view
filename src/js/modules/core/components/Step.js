@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { triggerStep } from '../coreActions';
+import { enterStep } from '../coreActions';
 
 class Step extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Step extends Component {
   updateScroll = () => {
     this.setState({ ticking: false });
     let { element } = this.state;
-    const { enter, exit, once, triggerStep, datum } = this.props;
+    const { enter, exit, once, enterStep, datum } = this.props;
     const targetFromTop = this.getOffsetHeight();
 
     const { top, bottom } = element.getBoundingClientRect();
@@ -74,7 +74,7 @@ class Step extends Component {
 
     if (entered && !element.__enter_view) {
       enter(element);
-      triggerStep(datum);
+      enterStep(datum);
       if (once) return false;
     } else if (!entered && element.__enter_view) {
       exit(element);
@@ -124,8 +124,10 @@ Step.defaultProps = {
     el.style.fontWeight = 'bold';
   },
   exit: el => {
+    console.log(el);
     el.style.opacity = '1';
     el.style.fontWeight = 'normal';
+    el.style.backgroundColor = 'white';
   },
   offset: 0.5,
   once: false,
@@ -133,5 +135,5 @@ Step.defaultProps = {
 };
 
 export default connect(null, dispatch => ({
-  triggerStep: datum => dispatch(triggerStep(datum)),
+  enterStep: datum => dispatch(enterStep(datum)),
 }))(Step);

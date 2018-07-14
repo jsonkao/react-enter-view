@@ -26,7 +26,7 @@ const initialState = {
 
 const reducer = (state = { ...initialState }, action) => {
   switch (action.type) {
-    case TRIGGER_STEP: {
+    case ENTER_STEP: {
       return {
         ...state,
         data: action.payload,
