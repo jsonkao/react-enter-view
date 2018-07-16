@@ -8,6 +8,8 @@ const styles = {
     top: '50%',
     transform: 'translateY(-50%)',
     alignSelf: 'flex-start',
+    display: 'flex',
+    justifyContent: 'center',
   },
 };
 
