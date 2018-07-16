@@ -21,6 +21,12 @@ const styles = {
   },
 };
 
+const generateData = () =>
+  [...new Array(10)].map(row => ({
+    x: Math.random() * 10,
+    y: Math.random() * 10,
+  }));
+
 class MainApp extends PureComponent {
   static contextTypes = {
     store: PropTypes.object.isRequired,
@@ -39,19 +45,19 @@ class MainApp extends PureComponent {
   };
 
   render() {
-    const { classes, data } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.main}>
         <Container split={40}>
           <Content>
-            <Step datum="red">
+            <Step datum={generateData()}>
               <div className={classes.step}>red</div>
             </Step>
-            <Step datum="green">
+            <Step datum={generateData()}>
               <div className={classes.step}>green</div>
             </Step>
-            <Step datum="blue">
+            <Step datum={generateData()}>
               <div className={classes.step}>blue</div>
             </Step>
           </Content>
@@ -70,7 +76,6 @@ const VisibleMainApp = connect(
     language: state.core.language,
     viewportWidth: state.core.viewportWidth,
     viewportHeight: state.core.viewportHeight,
-    data: state.core.data,
   }),
   dispatch => ({
     refreshWindowDimensions: () => {

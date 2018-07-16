@@ -120,14 +120,11 @@ Step.propTypes = {
 
 Step.defaultProps = {
   enter: el => {
-    el.style.opacity = '0.8';
     el.style.fontWeight = 'bold';
   },
   exit: el => {
     console.log(el);
-    el.style.opacity = '1';
     el.style.fontWeight = 'normal';
-    el.style.backgroundColor = 'white';
   },
   offset: 0.5,
   once: false,

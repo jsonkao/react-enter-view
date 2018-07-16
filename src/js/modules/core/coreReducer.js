@@ -1,4 +1,4 @@
-import { REFRESH_WINDOW_DIMENSIONS, TRIGGER_STEP } from './coreActions';
+import { REFRESH_WINDOW_DIMENSIONS, ENTER_STEP } from './coreActions';
 
 // getWindowWidth & getWindowHeight was
 // adapted from http://stackoverflow.com/a/8876069/1291659
@@ -21,7 +21,7 @@ var getViewportHeight = function() {
 const initialState = {
   viewportWidth: getViewportWidth(),
   viewportHeight: getViewportHeight(),
-  data: null,
+  data: [...new Array(10)].map((row, index) => ({ x: index, y: index })),
 };
 
 const reducer = (state = { ...initialState }, action) => {
