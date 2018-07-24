@@ -4,7 +4,6 @@ import injectSheet from 'react-jss';
 const styles = {
   FlexContainer: {
     display: 'flex',
-    border: '1px dashed #ddd',
     padding: '20px',
   },
 };

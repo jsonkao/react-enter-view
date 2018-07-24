@@ -123,7 +123,6 @@ Step.defaultProps = {
     el.style.fontWeight = 'bold';
   },
   exit: el => {
-    console.log(el);
     el.style.fontWeight = 'normal';
   },
   offset: 0.5,

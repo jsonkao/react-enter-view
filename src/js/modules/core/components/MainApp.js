@@ -27,61 +27,26 @@ const generateData = () =>
     y: Math.random() * 10,
   }));
 
-class MainApp extends PureComponent {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-  };
+const MainApp = ({ classes }) => (
+  <div className={classes.main}>
+    <Container split={40}>
+      <Content>
+        <Step datum={generateData()}>
+          <div className={classes.step}>one</div>
+        </Step>
+        <Step datum={generateData()}>
+          <div className={classes.step}>two</div>
+        </Step>
+        <Step datum={generateData()}>
+          <div className={classes.step}>three</div>
+        </Step>
+      </Content>
 
-  componentDidMount() {
-    window.addEventListener('resize', this.onResizeWindow);
-  }
+      <Sticky>
+        <Graphic />
+      </Sticky>
+    </Container>
+  </div>
+);
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.onResizeWindow);
-  }
-
-  onResizeWindow = () => {
-    this.props.refreshWindowDimensions();
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.main}>
-        <Container split={40}>
-          <Content>
-            <Step datum={generateData()}>
-              <div className={classes.step}>red</div>
-            </Step>
-            <Step datum={generateData()}>
-              <div className={classes.step}>green</div>
-            </Step>
-            <Step datum={generateData()}>
-              <div className={classes.step}>blue</div>
-            </Step>
-          </Content>
-
-          <Sticky>
-            <Graphic />
-          </Sticky>
-        </Container>
-      </div>
-    );
-  }
-}
-
-const VisibleMainApp = connect(
-  (state, ownProps) => ({
-    language: state.core.language,
-    viewportWidth: state.core.viewportWidth,
-    viewportHeight: state.core.viewportHeight,
-  }),
-  dispatch => ({
-    refreshWindowDimensions: () => {
-      dispatch(refreshWindowDimensions());
-    },
-  }),
-)(injectSheet(styles)(MainApp));
-
-export default VisibleMainApp;
+export default injectSheet(styles)(MainApp);
